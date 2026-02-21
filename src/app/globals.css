@@ -176,6 +176,17 @@ body {
   }
 }
 
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 @keyframes toastFadeOut {
   0% { opacity: 1; transform: translateX(-50%) translateY(0); }
   80% { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -297,7 +308,7 @@ body {
   z-index: 99;
   flex-direction: column;
   padding: 8px 0 16px;
-  animation: slideInBottom 0.25s ease;
+  animation: slideInFromTop 0.25s ease;
 }
 
 .mobile-nav-link {
