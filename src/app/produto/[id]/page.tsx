@@ -155,22 +155,6 @@ export default function ProductDetailPage() {
                             {added ? 'Adicionado à Sacola!' : 'Adicionar à Sacola'}
                         </button>
 
-                        <div className="store-benefits">
-                            <div className="benefit">
-                                <span className="benefit-icon"></span>
-                                <div className="benefit-text">
-                                    <strong>Frete Grátis</strong>
-                                    <span>Em compras acima de R$ 300</span>
-                                </div>
-                            </div>
-                            <div className="benefit">
-                                <span className="benefit-icon"></span>
-                                <div className="benefit-text">
-                                    <strong>Troca Fácil</strong>
-                                    <span>Até 7 dias após o recebimento</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </main>

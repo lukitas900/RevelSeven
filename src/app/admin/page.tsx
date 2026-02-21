@@ -544,7 +544,7 @@ export default function AdminPage() {
                             </p>
                         </div>
                     ) : (
-                        <table className="admin-table">
+                        <table className="admin-table admin-table--products">
                             <thead>
                                 <tr>
                                     <th>Foto</th>
@@ -731,7 +731,7 @@ export default function AdminPage() {
                         </div>
                     )}
 
-                    <form onSubmit={handleAddCategory} style={{ display: 'flex', gap: '12px', marginBottom: '24px', alignItems: 'flex-end' }}>
+                    <form onSubmit={handleAddCategory} className="admin-cat-form">
                         <div className="form-group" style={{ flex: 1, margin: 0 }}>
                             <label>Nova Categoria</label>
                             <input
@@ -755,7 +755,7 @@ export default function AdminPage() {
                     ) : customCategories.length === 0 ? (
                         <p style={{ color: 'var(--text-muted)' }}>Nenhuma categoria encontrada. Verifique as políticas RLS no Supabase.</p>
                     ) : (
-                        <table className="admin-table">
+                        <table className="admin-table admin-table--categories">
                             <thead>
                                 <tr>
                                     <th>Nome</th>
@@ -873,7 +873,7 @@ export default function AdminPage() {
 
                             <div className="form-group">
                                 <label>Imagens Adicionais (até 4)</label>
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }} className="admin-extra-images-grid">
                                     {[0, 1, 2, 3].map((i) => (
                                         <div key={i} style={{ position: 'relative' }}>
                                             <div className="image-upload" style={{ minHeight: '80px' }}>

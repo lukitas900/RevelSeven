@@ -1846,8 +1846,95 @@ body {
 }
 
 /* =============================================
-   FOOTER
+   ADMIN RESPONSIVE
    ============================================= */
+
+.admin-cat-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.admin-cat-form .form-group {
+  flex: 1;
+  margin: 0;
+  min-width: 180px;
+}
+
+.admin-cat-form .btn-primary,
+.admin-cat-form .btn-secondary {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.admin-extra-images-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+/* Oculta colunas menos essenciais na tabela mobile */
+@media (max-width: 768px) {
+  .admin-table--products th:nth-child(3),
+  .admin-table--products td:nth-child(3),
+  .admin-table--products th:nth-child(5),
+  .admin-table--products td:nth-child(5) {
+    display: none;
+  }
+
+  /* Na tabela de categorias, oculta slug mas mantém Ações */
+  .admin-table--categories th:nth-child(2),
+  .admin-table--categories td:nth-child(2) {
+    display: none;
+  }
+
+  .admin-extra-images-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .admin-cat-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-cat-form .btn-primary,
+  .admin-cat-form .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .admin-login {
+    margin: 80px 16px;
+    padding: 28px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-table--products th:nth-child(1),
+  .admin-table--products td:nth-child(1) {
+    display: none;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 10px 10px;
+    font-size: 0.82rem;
+  }
+
+  .admin-table-actions {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .admin-table-actions .btn-secondary,
+  .admin-table-actions .btn-danger {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
 
 .footer-root {
   width: 100%;
