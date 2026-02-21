@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useRef } from 'react';
 import { CartItem, Product } from '@/lib/types';
 
 interface CartContextType {
@@ -13,6 +13,7 @@ interface CartContextType {
     totalPrice: number;
     isCartOpen: boolean;
     setIsCartOpen: (open: boolean) => void;
+    showToast: (message: string) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -20,6 +21,16 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: React.ReactNode }) {
     const [items, setItems] = useState<CartItem[]>([]);
     const [isCartOpen, setIsCartOpen] = useState(false);
+    const [toastMessage, setToastMessage] = useState<string | null>(null);
+    const [toastKey, setToastKey] = useState(0);
+    const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    const showToast = useCallback((message: string) => {
+        if (toastTimer.current) clearTimeout(toastTimer.current);
+        setToastKey(k => k + 1);
+        setToastMessage(message);
+        toastTimer.current = setTimeout(() => setToastMessage(null), 2800);
+    }, []);
 
     const addItem = useCallback((product: Product, size: string) => {
         setItems((prev) => {
@@ -84,9 +95,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
                 totalPrice,
                 isCartOpen,
                 setIsCartOpen,
+                showToast,
             }}
         >
             {children}
+            {toastMessage && (
+                <div key={toastKey} className="toast">
+                    <span className="toast-icon">✓</span>
+                    {toastMessage}
+                </div>
+            )}
         </CartContext.Provider>
     );
 }

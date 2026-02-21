@@ -11,7 +11,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-    const { addItem } = useCart();
+    const { addItem, showToast } = useCart();
     const [selectedSize, setSelectedSize] = useState('');
     const [added, setAdded] = useState(false);
     const [imageError, setImageError] = useState(false);
@@ -31,6 +31,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         if (!selectedSize || selectedSizeStock === 0) return;
 
         addItem(product, selectedSize);
+        showToast(`${product.name} adicionado à sacola!`);
         setAdded(true);
         setTimeout(() => setAdded(false), 1500);
     };

@@ -12,7 +12,7 @@ import { GlareCard } from '@/components/GlareCard';
 
 export default function ProductDetailPage() {
     const { id } = useParams();
-    const { addItem } = useCart();
+    const { addItem, showToast } = useCart();
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
     const [selectedSize, setSelectedSize] = useState('');
@@ -58,6 +58,7 @@ export default function ProductDetailPage() {
     const handleAddToCart = () => {
         if (!product || !selectedSize) return;
         addItem(product, selectedSize);
+        showToast(`${product.name} adicionado à sacola!`);
         setAdded(true);
         setTimeout(() => setAdded(false), 2000);
     };

@@ -28,6 +28,7 @@ const ClickSpark = ({
     { x: number; y: number; angle: number; startTime: number }[]
   >([]);
   const startTimeRef = useRef<number | null>(null);
+  const isTouchRef = useRef(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -120,12 +121,12 @@ const ClickSpark = ({
     };
   }, [sparkColor, sparkSize, sparkRadius, sparkCount, duration, easeFunc, extraScale]);
 
-  const handleClick = (e: React.MouseEvent) => {
+  const triggerSparks = (clientX: number, clientY: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
 
     const now = performance.now();
     const newSparks = Array.from({ length: sparkCount }, (_, i) => ({
@@ -138,10 +139,22 @@ const ClickSpark = ({
     sparksRef.current.push(...newSparks);
   };
 
+  const handleClick = (e: React.MouseEvent) => {
+    if (isTouchRef.current) { isTouchRef.current = false; return; }
+    triggerSparks(e.clientX, e.clientY);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    isTouchRef.current = true;
+    const touch = e.touches[0];
+    if (touch) triggerSparks(touch.clientX, touch.clientY);
+  };
+
   return (
     <div
-      style={{ position: 'relative', width: '100%', minHeight: '100%' }}
+      style={{ position: 'relative', width: '100%', minHeight: '100%', overflowX: 'hidden' }}
       onClick={handleClick}
+      onTouchStart={handleTouchStart}
     >
       <canvas
         ref={canvasRef}
